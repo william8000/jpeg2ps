@@ -21,6 +21,8 @@ OBJ=o
 EXE=
 RM=rm -f
 
+.PHONY: all dist test check clean install uninstall
+
 .c.$(OBJ) :
 	$(CC) $(CFLAGS) $*.c
 
@@ -70,6 +72,10 @@ dist:
 
 test:	jpeg2ps$(EXE)
 	./jpeg2ps -o nesrin.eps nesrin.jpg
+	@if diff -q <(grep -v '^%%CreationDate' nesrin.eps) <(grep -v '^%%CreationDate' nesrin.txt) ; \
+	then echo "OK" ; else echo "Error: nesrin.eps does not match nesrin.txt" ; fi
+
+check:	test
 
 clean:
 	$(RM) *.$(OBJ) jpeg2ps$(EXE) $(TARFILE) $(TARFILE).gz $(ZIPFILE) \
