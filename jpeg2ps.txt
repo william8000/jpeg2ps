@@ -25,7 +25,12 @@ PDF take a look at PDFlib (http://www.pdflib.com).
 
 Change History
 ==============
-    
+
+V1.9.1 (March 3, 2025) WB
+  - Remove 'stop' if not level 2.
+  - Compile for gcc on Linux.
+  - Add gitignore.
+
 V1.9 (February 04, 2002)
   - Maintenance release without any functional changes.
   - Updated contact information to the address http://www.pdflib.com.

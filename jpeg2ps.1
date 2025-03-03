@@ -1,6 +1,6 @@
 .\" This is the manual page for jpeg2ps
 .\"
-.TH JPEG2PS 1 "Feb 02, 2002" "" ""
+.TH JPEG2PS 1 "Mar 03, 2025" "" ""
 
 .SH NAME
 jpeg2ps \- convert JPEG compressed images to PostScript Level 2 or 3
@@ -13,7 +13,7 @@ jpeg2ps \- convert JPEG compressed images to PostScript Level 2 or 3
 .I size
 ] [-q] [-r
 .I dpi
-] file.jpg > file.eps
+] [-v] file.jpg > file.eps
 
 .SH DESCRIPTION
 jpeg2ps reads a JPEG file (\fBnot\fP stdin) and writes a DSC-compliant EPS
@@ -86,6 +86,10 @@ The option "-r 0" instructs jpeg2ps to look for a JFIF density/resolution
 marker and use that value. Automatic scaling and rotation are disabled.
 However, if no resolution information is found in the file, jpeg2ps
 applies the default algorithm described above.
+
+.TP
+\fB-v\fP
+Show the version.
 
 .SH DIAGNOSTICS
 The jpeg2ps program issues three kinds of messages:

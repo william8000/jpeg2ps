@@ -15,6 +15,9 @@
 
 #ifdef DOS
 #include <io.h>
+#endif
+
+#if defined(DOS) || defined(__STDC__)
 #include <stdlib.h>
 #endif
 

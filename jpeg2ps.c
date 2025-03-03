@@ -6,8 +6,6 @@
  *
  * ------------------------------------------------------------------*/
 
-#define VERSION		"V1.9"
-
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
@@ -169,7 +167,7 @@ JPEGtoPS(imagedata *JPEG, FILE *PSfile) {
 
   /* produce EPS header comments */
   fprintf(PSfile, "%%!PS-Adobe-3.0 EPSF-3.0\n");
-  fprintf(PSfile, "%%%%Creator: jpeg2ps %s by Thomas Merz\n", VERSION);
+  fprintf(PSfile, "%%%%Creator: jpeg2ps V%s by Thomas Merz\n", VERSION);
   fprintf(PSfile, "%%%%Title: %s\n", JPEG->filename);
   fprintf(PSfile, "%%%%CreationDate: %s", ctime(&t));
   fprintf(PSfile, "%%%%BoundingBox: %d %d %d %d\n", 
@@ -188,7 +186,7 @@ JPEGtoPS(imagedata *JPEG, FILE *PSfile) {
                   JPEG->filename);
   fprintf(PSfile, "\\n) dup print flush\n");
   fprintf(PSfile, "  /Helvetica findfont 20 scalefont setfont ");
-  fprintf(PSfile, "100 100 moveto show showpage stop\n");
+  fprintf(PSfile, "100 100 moveto show showpage\n");
   fprintf(PSfile, "} if\n");
 
   fprintf(PSfile, "save\n");
@@ -286,7 +284,7 @@ JPEGtoPS(imagedata *JPEG, FILE *PSfile) {
 
 static
 void usage(void) {
-  fprintf(stderr, "jpeg2ps %s: convert JPEG files to PostScript Level 2 or 3.\n",
+  fprintf(stderr, "jpeg2ps V%s: convert JPEG files to PostScript Level 2 or 3.\n",
 		   VERSION);
   fprintf(stderr, "(C) Thomas Merz 1994-2002\n\n");
   fprintf(stderr, "usage: jpeg2ps [options] jpegfile > epsfile\n");
@@ -327,7 +325,7 @@ main(int argc, char ** argv) {
     usage();
 
 #ifndef MAC
-  while ((opt = getopt(argc, argv, "abho:p:qr:")) != -1)
+  while ((opt = getopt(argc, argv, "abho:p:qr:v")) != -1)
     switch (opt) {
       case 'a':
           autorotate = TRUE;
@@ -367,6 +365,7 @@ main(int argc, char ** argv) {
 	    exit(1);
 	  }
 	  break;
+      case 'v':
       case '?':
 	  usage();
     }

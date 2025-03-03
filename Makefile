@@ -1,7 +1,7 @@
 # Makefile for jpeg2ps
 # (C) Thomas Merz 1994-2002
 
-VERSION=1.9
+VERSION=1.9.1
 DIRNAME = jpeg2ps-$(VERSION)
 TARFILE = jpeg2ps-$(VERSION).tar
 ZIPFILE = jpeg2ps-$(VERSION).zip
@@ -14,7 +14,7 @@ ZIPFILE = jpeg2ps-$(VERSION).zip
 # The following was reported to work for emx/gcc 0.9c fix04 under OS/2:
 # make -f Makefile "CFLAGS=-c -DA4 -DDOS -O2" "LDFLAGS=-Zexe -s"
 
-CFLAGS=-c -DA4
+CFLAGS=-c -DVERSION=\"$(VERSION)\" -DA4 -O2 -fomit-frame-pointer -Wall -pipe
 LD=cc
 LDFLAGS=
 OBJ=o

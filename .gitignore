@@ -1,0 +1,4 @@
+*.o
+*.ps
+*.eps
+jpeg2ps
