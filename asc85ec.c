@@ -33,6 +33,9 @@ static int outbytes;		/* Number of characters in an output line */
 static int 
 ReadSomeBytes(FILE * in)
 {
+#if 1
+  return fread(buf, 1, 4, in);
+#else
   register int count, i;
 
   for (count = 0; count < 4; count++) {
@@ -42,6 +45,7 @@ ReadSomeBytes(FILE * in)
       buf[count] = (byte) i;
   }
   return count;
+#endif
 }
 
 /* Two percent characters at the start of a line will cause trouble
@@ -57,7 +61,7 @@ static void
 outbyte(byte c, FILE * out)
 {    /* output one byte */
 
-  if (fputc(c, out) == EOF) {
+  if (putc(c, out) == EOF) {
     fprintf(stderr, "jpeg2ps: write error - exit!\n");
     exit(1);
   }
@@ -94,7 +98,7 @@ ASCII85Encode(FILE * in, FILE * out)
 
   word = 0;
 
-  if (count != 0) {   /* 1-3 bytes left */
+  if (count > 0) {   /* 1-3 bytes left */
     for (i = count-1; i >= 0; i--)   /* accumulate bytes */
       word += (unsigned long)buf[i] << 8 * (3-i);
     

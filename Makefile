@@ -14,7 +14,7 @@ ZIPFILE = jpeg2ps-$(VERSION).zip
 # The following was reported to work for emx/gcc 0.9c fix04 under OS/2:
 # make -f Makefile "CFLAGS=-c -DA4 -DDOS -O2" "LDFLAGS=-Zexe -s"
 
-CFLAGS=-c -DVERSION=\"$(VERSION)\" -DA4 -O2 -fomit-frame-pointer -Wall -pipe
+CFLAGS=-c -DVERSION=\"$(VERSION)\" -DA4 -Ofast -fomit-frame-pointer -Wall -pipe
 LD=cc
 LDFLAGS=
 OBJ=o
