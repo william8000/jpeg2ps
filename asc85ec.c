@@ -26,7 +26,7 @@
 typedef unsigned char byte;
 
 static unsigned char buf[4];
-static unsigned long power85[5] = { 1L, 85L, 85L*85, 85L*85*85, 85L*85*85*85};
+static const unsigned long power85[5] = { 1L, 85L, 85L*85, 85L*85*85, 85L*85*85*85};
 static int outbytes;		/* Number of characters in an output line */
 
 /* read 0-4 Bytes. result: number of bytes read */
