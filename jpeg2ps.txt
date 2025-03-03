@@ -199,6 +199,7 @@ jpeg2ps [options] file.jpg > file.eps
          a0, a1, a2, a3, a4, a5, a6, b5, letter, legal, ledger, p11x17
 -q       quiet mode: suppress all informational messages
 -r dpi   resolution value (0 = read from file if possible)
+-v       show version
 
 jpeg2ps reads a JPEG file (*not* stdin) and writes a DSC-compliant EPS
 file containing the compressed JPEG data in PostScript format to stdout.
