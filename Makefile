@@ -28,6 +28,7 @@ LDFLAGS=
 OBJ=o
 EXE=
 RM=rm -f
+SHELL=/bin/bash
 
 .PHONY: all dist test check clean install uninstall
 
