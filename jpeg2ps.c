@@ -324,6 +324,8 @@ void usage(void) {
   fprintf(stderr, "-q        quiet mode: suppress all informational messages\n");
   fprintf(stderr, "-r <dpi>  resolution value (dots per inch)\n");
   fprintf(stderr, "          0 means use value given in file, if any (disables autorotate)\n");
+  fprintf(stderr, "For printing, use '-p a4' or '-p letter' and optionally '-a' .\n");
+  fprintf(stderr, "For making an eps, use '-p eps' and '-m 0' .\n");
   exit(1);
 }
 
