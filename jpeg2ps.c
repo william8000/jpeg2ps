@@ -138,7 +138,7 @@ JPEGtoPS(imagedata *JPEG, FILE *PSfile) {
       JPEG->dpi *= 2;
     }
     if (!quiet) {
-      fprintf(stderr, "Note: no resolution values found in JPEG file - using %.2f.\n", JPEG->dpi);
+      fprintf(stderr, "Note: no resolution values found in JPEG file.\n");
     }
   }
 
