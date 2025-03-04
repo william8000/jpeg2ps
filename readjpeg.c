@@ -240,7 +240,7 @@ BOOL AnalyzeJPEG(imagedata *image) {
 	    !strncmp((const char *)appstring, "JFIF", 4)) {
 	  unit = appstring[7];		        /* resolution unit */
 	  					/* resolution value */
-	  image->dpi = (float) ((appstring[8]<<8) + appstring[9]);
+	  image->dpi = (appstring[8]<<8) + appstring[9];
 
 	  if (image->dpi == 0.0) {
 	    image->dpi = DPI_USE_FILE;
@@ -257,7 +257,7 @@ BOOL AnalyzeJPEG(imagedata *image) {
 	      break;
 
 	    case DOTS_PER_CM:
-	      image->dpi *= (float) 2.54;
+	      image->dpi *= 2.54;
 	      break;
 
 	    default:				/* unknown ==> ignore */

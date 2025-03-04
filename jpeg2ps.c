@@ -90,7 +90,10 @@ PageSize_s PageSizes[] = {
     {"letter",	612, 792},
     {"legal",	612, 1008},
     {"ledger",	1224, 792},
-    {"p11x17",	792, 1224}
+    {"p11x17",	792, 1224},
+
+    /* special size to adapt to the image */
+    {"eps",       1,    1}
 };
 
 #define PAGESIZELIST	(sizeof(PageSizes)/sizeof(PageSizes[0]))
@@ -107,7 +110,7 @@ static void
 JPEGtoPS(imagedata *JPEG, FILE *PSfile) {
   int llx, lly, urx, ury;        /* Bounding box coordinates */
   size_t n;
-  float scale, sx, sy;           /* scale factors            */
+  double scale, sx, sy;          /* scale factors            */
   time_t t;
   int i;
 
@@ -121,6 +124,17 @@ JPEGtoPS(imagedata *JPEG, FILE *PSfile) {
       fprintf(stderr, "Note on file '%s': %dx%d pixel, %d color component%s\n",
 	JPEG->filename, JPEG->width, JPEG->height, JPEG->components,
 	(JPEG->components == 1 ? "" : "s"));
+
+  /* "Adapt to the image" was selected, but we don't have a dpi */
+  if ((JPEG->dpi == DPI_IGNORE || JPEG->dpi == DPI_USE_FILE) && PageWidth == 1) {
+    JPEG->dpi = 72;
+    while (JPEG->width / JPEG->dpi > 30 || JPEG->height / JPEG->dpi > 50) {
+      JPEG->dpi *= 2;
+    }
+    if (!quiet) {
+      fprintf(stderr, "Note: no resolution values found in JPEG file - using %.2f.\n", JPEG->dpi);
+    }
+  }
 
   /* "Use resolution from file" was requested, but we couldn't find any */
   if (JPEG->dpi == DPI_USE_FILE && !quiet) { 
@@ -137,17 +151,17 @@ JPEGtoPS(imagedata *JPEG, FILE *PSfile) {
 	    "Note: image width exceeds height - producing landscape output!\n");
     }
     if (!JPEG->landscape) {       /* calculate scaling factors */
-      sx = (float) (PageWidth - 2*Margin) / JPEG->width;
-      sy = (float) (PageHeight - 2*Margin) / JPEG->height;
+      sx = (double) (PageWidth - 2*Margin) / JPEG->width;
+      sy = (double) (PageHeight - 2*Margin) / JPEG->height;
     }else {
-      sx = (float) (PageHeight - 2*Margin) / JPEG->width;
-      sy = (float) (PageWidth - 2*Margin) / JPEG->height;
+      sx = (double) (PageHeight - 2*Margin) / JPEG->width;
+      sy = (double) (PageWidth - 2*Margin) / JPEG->height;
     }
     scale = min(sx, sy);	/* We use at least one edge of the page */
   } else {
     if (!quiet)
 	fprintf(stderr, "Note: Using resolution %d dpi.\n", (int) JPEG->dpi);
-    scale = (float) (72.0 / JPEG->dpi);     /* use given image resolution */
+    scale = (double) (72.0 / JPEG->dpi);     /* use given image resolution */
   }
 
   if (JPEG->landscape) {
@@ -325,7 +339,7 @@ main(int argc, char ** argv) {
     usage();
 
 #ifndef MAC
-  while ((opt = getopt(argc, argv, "abho:p:qr:v")) != -1)
+  while ((opt = getopt(argc, argv, "abhm:o:p:qr:v")) != -1)
     switch (opt) {
       case 'a':
           autorotate = TRUE;
@@ -335,6 +349,9 @@ main(int argc, char ** argv) {
 	  break;
       case 'h':
 	  image.mode = ASCIIHEX;
+	  break;
+      case 'm':
+	  Margin = atoi(optarg);
 	  break;
       case 'o':
 	  outfile = fopen(optarg, "w");
@@ -359,7 +376,7 @@ main(int argc, char ** argv) {
           quiet = TRUE;
 	  break;
       case 'r':
-	  image.dpi = (float) atof(optarg);
+	  image.dpi = atof(optarg);
 	  if (image.dpi < 0) {
 	    fprintf(stderr, "Error: bad resolution value %f !\n", image.dpi);
 	    exit(1);
