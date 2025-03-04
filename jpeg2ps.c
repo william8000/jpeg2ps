@@ -40,6 +40,12 @@ extern int optind;
 #include <fcntl.h>
 #endif
 
+#if defined(_POSIX_C_SOURCE) && (_POSIX_C_SOURCE >= 200809L)
+#define mystrcasecmp(a,b) strcasecmp((a),(b))
+#else
+#define mystrcasecmp(a,b) strcmp((a),(b))
+#endif
+
 /* Requires the DropUNIX package */
 #if defined(MAC) && defined(DROPUNIX)
 #include "Main.h"		/* Required for DropUNIX */
@@ -362,7 +368,7 @@ main(int argc, char ** argv) {
 	  break;
       case 'p':
 	  for (pagesizeindex = 0; pagesizeindex < PAGESIZELIST; pagesizeindex++)
-	    if (!strcmp((const char *) optarg, PageSizes[pagesizeindex].name)) {
+	    if (!mystrcasecmp((const char *) optarg, PageSizes[pagesizeindex].name)) {
 		PageHeight = PageSizes[pagesizeindex].height;
 		PageWidth = PageSizes[pagesizeindex].width;
 		break;
