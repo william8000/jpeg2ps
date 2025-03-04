@@ -24,8 +24,8 @@
 #include <getopt.h>
 #elif defined(DOS)
 int getopt(int argc, char * const argv[], const char *optstring);
-extern char *optarg;            
-extern int optind;              
+extern char *optarg;
+extern int optind;
 #elif !defined(DOS) && !defined(MAC)
 #include <unistd.h>
 #endif
@@ -52,8 +52,8 @@ int      getopt(int nargc, char **nargv, char *ostr);
 #endif
 
 #if (defined(DOS) || defined (MAC))
-#define READMODE  "rb"           /* read JPEG files in binary mode */
-#define WRITEMODE "wb"           /* write (some) PS files in binary mode */
+#define READMODE  "rb"          /* read JPEG files in binary mode */
+#define WRITEMODE "wb"          /* write (some) PS files in binary mode */
 #else
 #define READMODE  "r"
 #define WRITEMODE "w"           /* write (some) PS files in binary mode */
@@ -106,7 +106,7 @@ int PageWidth  = 612;           /* page width letter */
 int PageHeight = 792;           /* page height letter */
 #endif
 
-static void 
+static void
 JPEGtoPS(imagedata *JPEG, FILE *PSfile) {
   int llx, lly, urx, ury;        /* Bounding box coordinates */
   size_t n;
@@ -137,7 +137,7 @@ JPEGtoPS(imagedata *JPEG, FILE *PSfile) {
   }
 
   /* "Use resolution from file" was requested, but we couldn't find any */
-  if (JPEG->dpi == DPI_USE_FILE && !quiet) { 
+  if (JPEG->dpi == DPI_USE_FILE && !quiet) {
     fprintf(stderr,
     	"Note: no resolution values found in JPEG file - using standard scaling.\n");
     JPEG->dpi = DPI_IGNORE;
@@ -147,15 +147,15 @@ JPEGtoPS(imagedata *JPEG, FILE *PSfile) {
     if (JPEG->width > JPEG->height && autorotate) {	/* switch to landscape if needed */
       JPEG->landscape = TRUE;
       if (!quiet)
-	  fprintf(stderr, 
+	  fprintf(stderr,
 	    "Note: image width exceeds height - producing landscape output!\n");
     }
     if (!JPEG->landscape) {       /* calculate scaling factors */
-      sx = (double) (PageWidth - 2*Margin) / JPEG->width;
+      sx = (double) (PageWidth  - 2*Margin) / JPEG->width;
       sy = (double) (PageHeight - 2*Margin) / JPEG->height;
-    }else {
+    } else {
       sx = (double) (PageHeight - 2*Margin) / JPEG->width;
-      sy = (double) (PageWidth - 2*Margin) / JPEG->height;
+      sy = (double) (PageWidth  - 2*Margin) / JPEG->height;
     }
     scale = min(sx, sy);	/* We use at least one edge of the page */
   } else {
@@ -184,9 +184,9 @@ JPEGtoPS(imagedata *JPEG, FILE *PSfile) {
   fprintf(PSfile, "%%%%Creator: jpeg2ps V%s by Thomas Merz\n", VERSION);
   fprintf(PSfile, "%%%%Title: %s\n", JPEG->filename);
   fprintf(PSfile, "%%%%CreationDate: %s", ctime(&t));
-  fprintf(PSfile, "%%%%BoundingBox: %d %d %d %d\n", 
+  fprintf(PSfile, "%%%%BoundingBox: %d %d %d %d\n",
                    llx, lly, urx, ury);
-  fprintf(PSfile, "%%%%DocumentData: %s\n", 
+  fprintf(PSfile, "%%%%DocumentData: %s\n",
                   JPEG->mode == BINARY ? "Binary" : "Clean7Bit");
   fprintf(PSfile, "%%%%LanguageLevel: 2\n");
   fprintf(PSfile, "%%%%EndComments\n");
@@ -218,15 +218,15 @@ JPEGtoPS(imagedata *JPEG, FILE *PSfile) {
   fprintf(PSfile, ">> /DCTDecode filter def\n");
 
   /* translate to lower left corner of image */
-  fprintf(PSfile, "%d %d translate\n", (JPEG->landscape ? 
+  fprintf(PSfile, "%d %d translate\n", (JPEG->landscape ?
                    PageWidth - Margin : Margin), Margin);
 
   if (JPEG->landscape)                 /* rotation for landscape */
     fprintf(PSfile, "90 rotate\n");
-      
+
   fprintf(PSfile, "%.2f %.2f scale\n", /* scaling */
                    JPEG->width * scale, JPEG->height * scale);
-  fprintf(PSfile, "/Device%s setcolorspace\n", 
+  fprintf(PSfile, "/Device%s setcolorspace\n",
                   ColorSpaceNames[JPEG->components]);
   fprintf(PSfile, "{ << /ImageType 1\n");
   fprintf(PSfile, "     /Width %d\n", JPEG->width);
@@ -234,7 +234,7 @@ JPEGtoPS(imagedata *JPEG, FILE *PSfile) {
   fprintf(PSfile, "     /ImageMatrix [ %d 0 0 %d 0 %d ]\n",
                   JPEG->width, -JPEG->height, JPEG->height);
   fprintf(PSfile, "     /DataSource Data\n");
-  fprintf(PSfile, "     /BitsPerComponent %d\n", 
+  fprintf(PSfile, "     /BitsPerComponent %d\n",
                   JPEG->bits_per_component);
 
   /* workaround for color-inverted CMYK files produced by Adobe Photoshop:
@@ -246,7 +246,7 @@ JPEGtoPS(imagedata *JPEG, FILE *PSfile) {
     fprintf(PSfile, "     /Decode [1 0 1 0 1 0 1 0]\n");
   }else {
     fprintf(PSfile, "     /Decode [0 1");
-    for (i = 1; i < JPEG->components; i++) 
+    for (i = 1; i < JPEG->components; i++)
       fprintf(PSfile," 0 1");
     fprintf(PSfile, "]\n");
   }
@@ -358,10 +358,10 @@ main(int argc, char ** argv) {
 	  if (outfile == NULL) {
 	    fprintf(stderr, "Error: cannot open output file '%s'.\n", optarg);
 	    exit(-2);
-	  } 
+	  }
 	  break;
       case 'p':
-	  for(pagesizeindex=0; pagesizeindex < PAGESIZELIST; pagesizeindex++)
+	  for (pagesizeindex = 0; pagesizeindex < PAGESIZELIST; pagesizeindex++)
 	    if (!strcmp((const char *) optarg, PageSizes[pagesizeindex].name)) {
 		PageHeight = PageSizes[pagesizeindex].height;
 		PageWidth = PageSizes[pagesizeindex].width;
@@ -400,7 +400,7 @@ main(int argc, char ** argv) {
     usage();
 
   if ((image.fp = fopen(image.filename, READMODE)) == NULL) {
-    fprintf(stderr, "Error: couldn't read JPEG file '%s'!\n", 
+    fprintf(stderr, "Error: couldn't read JPEG file '%s'!\n",
       image.filename),
     exit(1);
   }
@@ -421,14 +421,14 @@ main(int argc, char ** argv) {
     {
 	cp += (bufLength - 4);
 	/* strip .jpg from terminating string */
-	if (strcmp(cp, ".jpg") == 0 || strcmp(cp, ".JPG") == 0) 
+	if (strcmp(cp, ".jpg") == 0 || strcmp(cp, ".JPG") == 0)
 	    outfilename[bufLength - 4] = '\0'; 		
     }
-    
+
     strcat(outfilename, ".eps");
 
      if ((image.fp = fopen(image.filename, READMODE)) == NULL) {
-	fprintf(stderr, "Error: couldn't read JPEG file '%s'!\n", 
+	fprintf(stderr, "Error: couldn't read JPEG file '%s'!\n",
 	image.filename),
 	exit(1);
      }

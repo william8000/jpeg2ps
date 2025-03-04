@@ -30,7 +30,7 @@ static const unsigned long power85[5] = { 1L, 85L, 85L*85, 85L*85*85, 85L*85*85*
 static int outbytes;		/* Number of characters in an output line */
 
 /* read 0-4 Bytes. result: number of bytes read */
-static int 
+static int
 ReadSomeBytes(FILE * in)
 {
 #if 1
@@ -57,7 +57,7 @@ ReadSomeBytes(FILE * in)
  * so it's only a cosmetic flaw and not a functional restriction.
  */
 
-static void 
+static void
 outbyte(byte c, FILE * out)
 {    /* output one byte */
 
@@ -115,7 +115,7 @@ ASCII85Encode(FILE * in, FILE * out)
   return 0;
 }
 
-void 
+void
 ASCIIHexEncode(FILE *in, FILE * out) {
   static char buffer[512];
   static char BinToHex[] = "0123456789ABCDEF";
