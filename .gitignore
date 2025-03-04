@@ -1,4 +1,6 @@
 *.o
 *.ps
 *.eps
+*.err*
+*.log*
 jpeg2ps
