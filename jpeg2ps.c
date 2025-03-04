@@ -313,7 +313,7 @@ void usage(void) {
   fprintf(stderr, "-h        hex mode: output 7 bit data in ASCIIHex encoding\n");
   fprintf(stderr, "-o <name> output file name\n");
   fprintf(stderr, "-p <size> page size name. Known names are:\n");
-  fprintf(stderr, "          a0, a1, a2, a3, a4, a5, a6, b5, letter, legal, ledger, p11x17\n");
+  fprintf(stderr, "          a0, a1, a2, a3, a4, a5, a6, b5, letter, legal, ledger, p11x17, eps\n");
   fprintf(stderr, "-q        quiet mode: suppress all informational messages\n");
   fprintf(stderr, "-r <dpi>  resolution value (dots per inch)\n");
   fprintf(stderr, "          0 means use value given in file, if any (disables autorotate)\n");
