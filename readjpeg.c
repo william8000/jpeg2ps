@@ -128,6 +128,7 @@ next_marker(FILE *fp)
     do {                            /* skip to FF 		  */
       nbytes++;
       c = getc(fp);
+      if (c == EOF) return M_ERROR;
     } while (c != 0xFF);
     do {                            /* skip repeated FFs  	  */
       c = getc(fp);
