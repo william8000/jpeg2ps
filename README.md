@@ -18,8 +18,9 @@ jpeg2ps [options] file.jpg > file.eps
 | `-a`      | auto rotate feature |
 | `-b`      | binary mode |
 | `-h`      | hex mode (ASCIIHex encoding) |
+| `-m size` | margin in points (default 20) |
 | `-o name` | output file name (as an alternative to output redirection) |
-| `-p size` | page size name. Known names are: a0, a1, a2, a3, a4, a5, a6, b5, letter, legal, ledger, p11x17 |
+| `-p size` | page size name. Known names are: a0, a1, a2, a3, a4, a5, a6, b5, letter, legal, ledger, p11x17, eps |
 | `-q`      | quiet mode: suppress all informational messages |
 | `-r dpi`  | resolution value (0 = read from file if possible) |
 | `-v`      | show version |

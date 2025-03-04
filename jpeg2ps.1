@@ -1,15 +1,17 @@
 .\" This is the manual page for jpeg2ps
 .\"
-.TH JPEG2PS 1 "Mar 03, 2025" "" ""
+.TH JPEG2PS 1 "Mar 04, 2025" "" ""
 
 .SH NAME
 jpeg2ps \- convert JPEG compressed images to PostScript Level 2 or 3
 
 .SH SYNOPSIS
-.B jpeg2ps 
-[-a] [-b] [-h] [-o 
+.B jpeg2ps
+[-a] [-b] [-h] [-m
+.I size
+] [-o
 .I name
-] [-p 
+] [-p
 .I size
 ] [-q] [-r
 .I dpi
@@ -55,12 +57,16 @@ interpreters, e.g. Ghostscript, or serial and parallel channels using
 Binary Control Protocol (BCP).
 
 .TP
-\fB-h\fP 
+\fB-h\fP
 Hex mode (ASCIIHex encoding). Using this option, jpeg2ps generates 7-bit
 clean data by using ASCIIHex encoding instead of the more space-efficient
 ASCII85 encoding.  This is only useful for specialized applications,
 e.g. for debugging, since jpeg2ps requires PostScript Level 2 anyway, and
 ASCII85 is supported in any Level 2 interpreter.
+
+.TP
+\fB-m\fP \fIsize\fP
+Margin size in points. The default is 20.
 
 .TP
 \fB-o\fP \fIname\fP
@@ -69,7 +75,7 @@ Output file name (as an alternative to output redirection).
 .TP
 \fB-p\fP \fIsize\fP
 Page size name. Known names are: a0, a1, a2, a3, a4, a5, a6, b5, letter,
-legal, ledger, p11x17
+legal, ledger, p11x17, eps
 
 .TP
 \fB-q\fP
@@ -81,7 +87,7 @@ Quiet mode: suppress all informational messages
 Resolution value. Using this option you can force jpeg2ps to use a certain
 dpi value.  Since automatic actions are also disabled in this case, you are
 responsible for choosing a reasonable resolution value.  For example, you
-can print a 300 dpi image half-sized by supplying -r 600. 
+can print a 300 dpi image half-sized by supplying -r 600.
 The option "-r 0" instructs jpeg2ps to look for a JFIF density/resolution
 marker and use that value. Automatic scaling and rotation are disabled.
 However, if no resolution information is found in the file, jpeg2ps
@@ -132,12 +138,12 @@ http://www.pdflib.com
 .SH LICENSE
 This software is free. You are granted the right to use and copy it. This
 software may not be sold or bundled with any commercial package without
-express written permission of the author. 
+express written permission of the author.
 
 The author accepts no responsibility for damages resulting from the use of
 this software and makes no warranty, either express or implied, including but
 not limited to, any implied warranty of merchantability or fitness for a
 particular purpose. This software is provided as is, and you assume all risks
-when using it. 
+when using it.
 
 .\" End of manual page.

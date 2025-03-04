@@ -311,6 +311,7 @@ void usage(void) {
   fprintf(stderr, "-a        auto rotate: produce landscape output if width > height\n");
   fprintf(stderr, "-b        binary mode: output 8 bit data (default: 7 bit with ASCII85)\n");
   fprintf(stderr, "-h        hex mode: output 7 bit data in ASCIIHex encoding\n");
+  fprintf(stderr, "-m <size> margin: set the margin in points (default %d)\n", Margin);
   fprintf(stderr, "-o <name> output file name\n");
   fprintf(stderr, "-p <size> page size name. Known names are:\n");
   fprintf(stderr, "          a0, a1, a2, a3, a4, a5, a6, b5, letter, legal, ledger, p11x17, eps\n");
