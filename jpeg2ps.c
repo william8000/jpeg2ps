@@ -20,6 +20,9 @@
 #endif
 #endif /* __MWERKS__ */
 
+#if defined(__linux__)
+#include <unistd.h>
+#else
 #if defined(__CYGWIN32__)
 #include <getopt.h>
 #elif defined(DOS)
@@ -38,6 +41,7 @@ extern int optind;
 #ifdef DOS
 #include <io.h>
 #include <fcntl.h>
+#endif
 #endif
 
 #if defined(_POSIX_C_SOURCE) && (_POSIX_C_SOURCE >= 200809L)
@@ -59,29 +63,30 @@ int      getopt(int nargc, char **nargv, char *ostr);
 
 #if (defined(DOS) || defined (MAC))
 #define READMODE  "rb"          /* read JPEG files in binary mode */
+#ifdef MAC
 #define WRITEMODE "wb"          /* write (some) PS files in binary mode */
+#endif
 #else
 #define READMODE  "r"
+#ifdef MAC
 #define WRITEMODE "w"           /* write (some) PS files in binary mode */
 #endif
+#endif
 
-int Margin     	= 20;           /* safety margin */
-BOOL quiet	= FALSE;	/* suppress informational messages */
-BOOL autorotate = FALSE;	/* disable automatic rotation */
+BOOL quiet              = FALSE;        /* suppress informational messages */
 
-BOOL	AnalyzeJPEG(imagedata * image);
-int	ASCII85Encode(FILE *in, FILE *out);
-void    ASCIIHexEncode(FILE *in, FILE *out);
+static int Margin       = 20;           /* safety margin */
+static BOOL autorotate = FALSE;         /* disable automatic rotation */
 
 #define BUFFERSIZE 1024
 static char buffer[BUFFERSIZE];
-static char *ColorSpaceNames[] = {"", "Gray", "", "RGB", "CMYK" };
+static const char *ColorSpaceNames[] = {"", "Gray", "", "RGB", "CMYK" };
 
 /* Array of known page sizes including name, width, and height */
 
 typedef struct { const char *name; int width; int height; } PageSize_s;
 
-PageSize_s PageSizes[] = {
+static PageSize_s PageSizes[] = {
     /* ISO paper sizes */
     {"a0",	2380, 3368},
     {"a1",	1684, 2380},
@@ -102,14 +107,14 @@ PageSize_s PageSizes[] = {
     {"eps",       1,    1}
 };
 
-#define PAGESIZELIST	(sizeof(PageSizes)/sizeof(PageSizes[0]))
+#define PAGESIZELIST	((int) (sizeof(PageSizes)/sizeof(PageSizes[0])))
 
 #ifdef A4
-int PageWidth  = 595;           /* page width A4 */
-int PageHeight = 842;           /* page height A4 */
+static int PageWidth  = 595;           /* page width A4 */
+static int PageHeight = 842;           /* page height A4 */
 #else
-int PageWidth  = 612;           /* page width letter */
-int PageHeight = 792;           /* page height letter */
+static int PageWidth  = 612;           /* page width letter */
+static int PageHeight = 792;           /* page height letter */
 #endif
 
 static void
@@ -285,6 +290,7 @@ JPEGtoPS(imagedata *JPEG, FILE *PSfile) {
     break;
 
   case ASCII85:
+  default:
     fprintf(PSfile, "\n");
 
     /* ASCII85 representation of image data */
@@ -391,6 +397,7 @@ main(int argc, char ** argv) {
 	  break;
       case 'v':
       case '?':
+      default:
 	  usage();
     }
 

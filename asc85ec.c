@@ -34,7 +34,7 @@ static int
 ReadSomeBytes(FILE * in)
 {
 #if 1
-  return fread(buf, 1, 4, in);
+  return (int) fread(buf, 1, 4, in);
 #else
   register int count, i;
 
@@ -101,7 +101,7 @@ ASCII85Encode(FILE * in, FILE * out)
   if (count > 0) {   /* 1-3 bytes left */
     for (i = count-1; i >= 0; i--)   /* accumulate bytes */
       word += (unsigned long)buf[i] << 8 * (3-i);
-    
+
     /* encoding as above, but output only count+1 bytes */
     for (i = 4; i >= 4-count; i--) {
       v = word / power85[i];

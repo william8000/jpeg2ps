@@ -14,7 +14,15 @@ ZIPFILE = jpeg2ps-$(VERSION).zip
 # The following was reported to work for emx/gcc 0.9c fix04 under OS/2:
 # make -f Makefile "CFLAGS=-c -DA4 -DDOS -O2" "LDFLAGS=-Zexe -s"
 
-CFLAGS=-c -DVERSION=\"$(VERSION)\" -DA4 -Ofast -fomit-frame-pointer -Wall -pipe
+WARN=-Wall -Wextra -Wwrite-strings -Wdeclaration-after-statement \
+	-Wignored-qualifiers -Wmissing-field-initializers -Wtype-limits \
+	-Wuninitialized -Winit-self -Wredundant-decls -Wparentheses \
+	-Wunused-parameter -Wunused-variable -Wunused-function -Wunused-value \
+	-Wswitch-default -Wreturn-type -Wshadow -Wformat-security -Wformat-y2k \
+	-Wswitch-enum -Wstrict-prototypes -Wundef -Wunused-macros \
+	-Wcast-align -Wpacked -Wmissing-prototypes -Wmissing-declarations \
+	-Wnested-externs -Wbad-function-cast -Wconversion
+CFLAGS=-c -DVERSION=\"$(VERSION)\" -DA4 -Ofast -fomit-frame-pointer $(WARN) -pipe
 LD=cc
 LDFLAGS=
 OBJ=o

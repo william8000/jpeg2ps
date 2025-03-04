@@ -34,3 +34,10 @@ typedef struct {
 
 #define DPI_IGNORE   ((double) (-1)) /* dummy value for imagedata.dpi    */
 #define DPI_USE_FILE ((double) 0)    /* dummy value for imagedata.dpi    */
+
+extern BOOL quiet;
+
+BOOL	AnalyzeJPEG(imagedata * image);
+int	ASCII85Encode(FILE *in, FILE *out);
+void	ASCIIHexEncode(FILE *in, FILE *out);
+

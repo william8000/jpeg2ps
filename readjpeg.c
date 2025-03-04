@@ -25,8 +25,6 @@
  * is rather simple-minded about markers
  */
 
-extern BOOL quiet;
-
 typedef enum {		/* JPEG marker codes			*/
   M_SOF0  = 0xc0,	/* baseline DCT				*/
   M_SOF1  = 0xc1,	/* extended sequential DCT		*/
@@ -119,14 +117,13 @@ get_2bytes(FILE *fp)
 static int 
 next_marker(FILE *fp)
 { /* look for next JPEG Marker  */
-  int c, nbytes = 0;
+  int c;
 
   if (feof(fp))
     return M_ERROR;                 /* dummy marker               */
 
   do {
     do {                            /* skip to FF 		  */
-      nbytes++;
       c = getc(fp);
       if (c == EOF) return M_ERROR;
     } while (c != 0xFF);
