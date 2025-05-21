@@ -23,7 +23,7 @@ WARN=-Wall -Wextra -Wwrite-strings -Wdeclaration-after-statement \
 	-Wcast-align -Wpacked -Wmissing-prototypes -Wmissing-declarations \
 	-Wnested-externs -Wbad-function-cast -Wconversion
 CFLAGS=-c -DVERSION=\"$(VERSION)\" -DA4 -Ofast -fomit-frame-pointer $(WARN) -pipe
-LD=cc
+LD=$(CC)
 LDFLAGS=
 OBJ=o
 EXE=
@@ -51,12 +51,15 @@ DISTFILES = \
 
 DOSDISTFILES = $(DISTFILES) jpeg2ps.exe
 
+# Installation prefix
+PREFIX = /usr/local
+
 # Location where to install the binary. This is a suitable value for Linux
 # (and possibly other unix-like) systems.
-BINDIR = /usr/local/bin
+BINDIR = $(PREFIX)/bin
 
 # Location where to install the manual page.
-MANDIR = /usr/local/man/man1
+MANDIR = $(PREFIX)/man/man1
 
 CONVFILES = \
 	jpeg2ps.c psimage.h readjpeg.c asc85ec.c getopt.c	\
@@ -91,8 +94,8 @@ clean:
 	nesrin.eps
 
 install: jpeg2ps$(EXE)
-	cp jpeg2ps$(EXE) $(BINDIR)
-	cp jpeg2ps.1 $(MANDIR)
+	cp jpeg2ps$(EXE) $(DESTDIR)$(BINDIR)
+	cp jpeg2ps.1 $(DESTDIR)$(MANDIR)
 
 uninstall:
 	rm -f $(BINDIR)/jpeg2ps$(EXE)
