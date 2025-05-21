@@ -97,6 +97,7 @@ install: jpeg2ps$(EXE)
 	mkdir -p $(DESTDIR)$(BINDIR)
 	cp -f jpeg2ps$(EXE) $(DESTDIR)$(BINDIR)
 	chmod 555 $(DESTDIR)$(BINDIR)/jpeg2ps$(EXE)
+	mkdir -p $(DESTDIR)$(MANDIR)
 	cp -f jpeg2ps.1 $(DESTDIR)$(MANDIR)
 	chmod 444 $(DESTDIR)$(MANDIR)/jpeg2ps.1
 
