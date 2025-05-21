@@ -94,8 +94,11 @@ clean:
 	nesrin.eps
 
 install: jpeg2ps$(EXE)
+	mkdir -p $(DESTDIR)$(BINDIR)
 	cp jpeg2ps$(EXE) $(DESTDIR)$(BINDIR)
+	chmod 555 $(DESTDIR)$(BINDIR)/jpeg2ps$(EXE)
 	cp jpeg2ps.1 $(DESTDIR)$(MANDIR)
+	chmod 444 $(DESTDIR)$(MANDIR)/jpeg2ps.1
 
 uninstall:
 	rm -f $(BINDIR)/jpeg2ps$(EXE)
