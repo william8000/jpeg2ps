@@ -350,7 +350,7 @@ main(int argc, char ** argv) {
 
   outfile = stdout;
 
- if (argc == 1)
+  if (argc == 1)
     usage();
 
 #ifndef MAC

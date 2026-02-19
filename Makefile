@@ -22,7 +22,7 @@ WARN=-Wall -Wextra -Wwrite-strings -Wdeclaration-after-statement \
 	-Wswitch-enum -Wstrict-prototypes -Wundef -Wunused-macros \
 	-Wcast-align -Wpacked -Wmissing-prototypes -Wmissing-declarations \
 	-Wnested-externs -Wbad-function-cast -Wconversion
-CFLAGS=-c -DVERSION=\"$(VERSION)\" -DA4 -Ofast -fomit-frame-pointer $(WARN) -pipe
+CFLAGS=-c -DVERSION=\"$(VERSION)\" -DA4 -Ofast -fomit-frame-pointer $(WARN) -pipe $(XCFLAGS)
 LD=$(CC)
 LDFLAGS=
 OBJ=o
@@ -41,7 +41,7 @@ all:	jpeg2ps$(EXE)
 # at the end of the next two lines below.
 
 jpeg2ps$(EXE):	jpeg2ps.$(OBJ) readjpeg.$(OBJ) asc85ec.$(OBJ)
-	$(LD) $(LDFLAGS) -o jpeg2ps$(EXE) jpeg2ps.$(OBJ) readjpeg.$(OBJ) asc85ec.$(OBJ)
+	$(LD) $(LDFLAGS) $(XLDFLAGS) -o jpeg2ps$(EXE) jpeg2ps.$(OBJ) readjpeg.$(OBJ) asc85ec.$(OBJ)
 
 DISTFILES = \
 	jpeg2ps.c psimage.h readjpeg.c asc85ec.c getopt.c	\
