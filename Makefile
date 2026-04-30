@@ -1,7 +1,7 @@
 # Makefile for jpeg2ps
 # (C) Thomas Merz 1994-2002
 
-VERSION=1.9.1
+VERSION=1.9.2
 DIRNAME = jpeg2ps-$(VERSION)
 TARFILE = jpeg2ps-$(VERSION).tar
 ZIPFILE = jpeg2ps-$(VERSION).zip
@@ -84,7 +84,7 @@ dist:
 
 test:	jpeg2ps$(EXE)
 	./jpeg2ps -o nesrin.eps nesrin.jpg
-	@if diff -q <(grep -v '^%%CreationDate' nesrin.eps) <(grep -v '^%%CreationDate' nesrin.txt) ; \
+	@if diff -q <(grep -Ev '^%%CreationDate|^%%Creator: jpeg2ps' nesrin.eps) <(grep -Ev '^%%CreationDate|^%%Creator: jpeg2ps' nesrin.txt) ; \
 	then echo "OK" ; else echo "Error: nesrin.eps does not match nesrin.txt" ; fi
 
 check:	test

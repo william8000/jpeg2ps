@@ -26,6 +26,9 @@ PDF take a look at PDFlib (http://www.pdflib.com).
 Change History
 ==============
 
+V1.9.2 (April 30, 2026) WB
+  - Add check before subtracting 2 from an unsigned length.
+
 V1.9.1 (March 3, 2025) WB
   - Remove 'stop' if not level 2.
   - Compile for gcc on Linux.

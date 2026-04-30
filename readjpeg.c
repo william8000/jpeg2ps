@@ -197,8 +197,8 @@ BOOL AnalyzeJPEG(imagedata *image) {
       case M_SOF14:
       case M_SOF15:
 	fprintf(stderr, 
-         "Warning: JPEG file uses compression method %X - proceeding anyway.\n",
-		  c);
+		"Warning: JPEG file uses compression method %X - proceeding anyway.\n",
+		c);
         fprintf(stderr, 
 		"PostScript output does not work on all PS interpreters!\n");
 	/* FALLTHROUGH */
@@ -218,10 +218,12 @@ BOOL AnalyzeJPEG(imagedata *image) {
       case M_APP0:		/* check for JFIF marker with resolution */
 	length = get_2bytes(image->fp);
 
-	for (i = 0; i < length-2; i++) {	/* get contents of marker */
-	  b = getc(image->fp);
-	  if (i < APP_MAX)			/* store marker in appstring */
-	    appstring[i] = (unsigned char) b;
+	if (length > 2) {
+	  for (i = 0; i < length-2; i++) {	/* get contents of marker */
+	    b = getc(image->fp);
+	    if (i < APP_MAX)			/* store marker in appstring */
+	      appstring[i] = (unsigned char) b;
+	  }
 	}
 
 	/* Check for JFIF application marker and read density values
@@ -270,10 +272,12 @@ BOOL AnalyzeJPEG(imagedata *image) {
       case M_APP14:				/* check for Adobe marker */
 	length = get_2bytes(image->fp);
 
-	for (i = 0; i < length-2; i++) {	/* get contents of marker */
-	  b = getc(image->fp);
-	  if (i < APP_MAX)			/* store marker in appstring */
-	    appstring[i] = (unsigned char) b;
+	if (length > 2) {
+	  for (i = 0; i < length-2; i++) {	/* get contents of marker */
+	    b = getc(image->fp);
+	    if (i < APP_MAX)			/* store marker in appstring */
+	      appstring[i] = (unsigned char) b;
+	  }
 	}
 
 	/* Check for Adobe application marker. It is known (per Adobe's TN5116)
@@ -299,8 +303,10 @@ BOOL AnalyzeJPEG(imagedata *image) {
 
       default:			/* skip variable length markers */
 	length = get_2bytes(image->fp);
-	for (length -= 2; length > 0; length--)
-	  (void) getc(image->fp);
+	if (length > 2) {
+	  for (length -= 2; length > 0; length--)
+	    (void) getc(image->fp);
+	}
 	break;
     }
   }

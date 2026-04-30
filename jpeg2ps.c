@@ -450,6 +450,10 @@ main(int argc, char ** argv) {
      }
 
     outfile = fopen(outfilename, WRITEMODE);
+    if (outfile == NULL) {
+      fprintf(stderr, "Error: cannot open output file '%s'.\n", outfilename);
+      exit(1);
+    }
 
     JPEGtoPS(&image, outfile);      /* convert JPEG data */
 
