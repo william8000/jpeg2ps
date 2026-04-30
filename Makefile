@@ -1,7 +1,7 @@
 # Makefile for jpeg2ps
 # (C) Thomas Merz 1994-2002
 
-VERSION=1.9.2
+VERSION=1.9.3
 DIRNAME = jpeg2ps-$(VERSION)
 TARFILE = jpeg2ps-$(VERSION).tar
 ZIPFILE = jpeg2ps-$(VERSION).zip

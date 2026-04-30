@@ -26,8 +26,11 @@ PDF take a look at PDFlib (http://www.pdflib.com).
 Change History
 ==============
 
-V1.9.2 (April 30, 2026) WB
+V1.9.3 (April 30, 2026) WB
   - Add check before subtracting 2 from an unsigned length.
+
+V1.9.2 (Feb 19, 2026) WB
+  - Update Makefile to add XCFLAGS to CFLAGS, XLDFLAGS to link
 
 V1.9.1 (March 3, 2025) WB
   - Remove 'stop' if not level 2.
