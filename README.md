@@ -25,4 +25,18 @@ jpeg2ps [options] file.jpg > file.eps
 | `-r dpi`  | resolution value (0 = read from file if possible) |
 | `-v`      | show version |
 
-Mirror of a library once available at [this link](http://www.pdflib.com/fileadmin/pdflib/products/more/jpeg2ps/jpeg2ps-1.9.tar.gz) but it seems to have been removed.
+History
+=======
+Based on a library once available at [this link](http://www.pdflib.com/fileadmin/pdflib/products/more/jpeg2ps/jpeg2ps-1.9.tar.gz) but it seems to have been removed.
+That original tarball
+```
+e09919ff55bb1fd26299adfe92e5ea0e7daaa3bfa0277a0483cac9764eac25a2  jpeg2ps-1.9.tar.gz
+```
+was produced by Thomas Merz <tm@pdflib.com> on Feb 4, 2002.  That's an era
+predating modern understanding of and ubiquity of Free Software licenses.
+Because it includes the note "This software may not be sold or bundled with
+any commercial package without express written permission of the author,"
+jpeg2ps can never show up in mainstream distros like Debian.
+
+You can confirm that the contents of this repo as of tag 1.9 match the
+contents of that tarball, not counting the new .git and README.md.
